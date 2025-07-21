@@ -1,4 +1,5 @@
 require('dotenv').config();
+const PORT = process.env.PORT || 3000; 
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -70,9 +71,7 @@ app.post('/login', async (req, res) => {
 
 // Reemplaza app.listen() por esto:
 if (require.main === module) {
-  // Solo se ejecuta en local (no en Vercel)
-  app.listen(PORT, '0.0.0.0', () => 
-    console.log(`🚀 Servidor local en puerto ${PORT}`)
-  );
-}
-module.exports = app; 
+ app.listen(PORT, () => {  // ← Así debe quedar
+  console.log(`Servidor en puerto ${PORT}`);
+});
+module.exports = app; }
