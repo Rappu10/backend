@@ -68,8 +68,11 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// ✅ Arrancar servidor
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, '0.0.0.0', () =>
-  console.log(`🚀 Servidor corriendo en puerto ${PORT}`)
-);
+// Reemplaza app.listen() por esto:
+if (require.main === module) {
+  // Solo se ejecuta en local (no en Vercel)
+  app.listen(PORT, '0.0.0.0', () => 
+    console.log(`🚀 Servidor local en puerto ${PORT}`)
+  );
+}
+module.exports = app; 
